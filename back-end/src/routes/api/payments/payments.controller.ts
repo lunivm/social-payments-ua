@@ -5,10 +5,10 @@ import {
 } from 'express';
 import * as _ from 'lodash';
 import moment from 'moment';
-import { Payment } from '../../../../../api-contracts/payment/payment';
-import { PaymentsFilter } from '../../../../../api-contracts/payment/payments-filter';
-import { PaymentsLatest } from '../../../../../api-contracts/payment/payments-latest';
-import { PaymentsLatestFilter } from '../../../../../api-contracts/payment/payments-latest-filter';
+import { Payment } from 'api-contracts/payment/payment';
+import { PaymentsFilter } from 'api-contracts/payment/payments-filter';
+import { PaymentsLatest } from 'api-contracts/payment/payments-latest';
+import { PaymentsLatestFilter } from 'api-contracts/payment/payments-latest-filter';
 import { HttpError } from '../../../core/http-error';
 import { Token } from '../../../core/token/token';
 import { PaymentModelService } from '../../../models/payment/payment.model.service';
@@ -16,7 +16,7 @@ import { UserModel } from '../../../models/user/user.model';
 import { UserModelService } from '../../../models/user/user.model.service';
 import { ApiCommonController } from '../api-common.controller';
 import { PaymentModel } from '../../../models/payment/payment.model';
-import { PaymentBatchUpdate } from '../../../../../api-contracts/payment/payment-batch-update';
+import { PaymentBatchUpdate } from 'api-contracts/payment/payment-batch-update';
 
 export class PaymentsController extends ApiCommonController {
   public static getByFilter(req: Request, res: Response, next: NextFunction): void {

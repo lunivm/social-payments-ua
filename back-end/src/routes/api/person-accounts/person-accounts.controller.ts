@@ -3,7 +3,7 @@ import {
   Request,
   Response
 } from 'express';
-import { PersonAccounts } from '../../../../../api-contracts/person-accounts/person-accounts';
+import { PersonAccounts } from 'api-contracts/person-accounts/person-accounts';
 import { PersonAccountsModelService } from '../../../models/person-accounts/person-accounts.model.service';
 import { ApiCommonController } from '../api-common.controller';
 

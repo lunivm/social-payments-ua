@@ -1,6 +1,6 @@
 import { Document, model, Schema } from 'mongoose';
-import { ApplicationSetting } from '../../../../api-contracts/application-setting/application-setting';
-import { SettingParamName } from '../../../../api-contracts/application-setting/setting-param-name.type';
+import { ApplicationSetting } from 'api-contracts/application-setting/application-setting';
+import { SettingParamName } from 'api-contracts/application-setting/setting-param-name.type';
 
 const paramNames: SettingParamName[] = [
   'territoryCode',

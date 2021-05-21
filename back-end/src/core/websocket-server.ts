@@ -6,7 +6,7 @@ import {
 import { Server as HttpsServer } from 'https';
 import * as WebSocket from 'ws';
 import { Server as WsServer } from 'ws';
-import { WebsocketMessage } from '../../../api-contracts/websocket-messages/websocket-message';
+import { WebsocketMessage } from 'api-contracts/websocket-messages/websocket-message';
 import { Token } from './token/token';
 import { TokenInfo } from './token/token-info';
 

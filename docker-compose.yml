@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: build/api.dockerfile
+    environment:
+      NODE_ENV: "development"
+    ports:
+    - 3000:80
+#    entrypoint: node -e "setInterval(()=>console.log(1), 1000)"

@@ -2,11 +2,11 @@ import express, { NextFunction, Request, Response } from 'express';
 import { PaymentModel } from '../../../models/payment/payment.model';
 import { CommonReport } from '../common-report';
 import moment from 'moment';
-import { CipherReportQueryParams } from '../../../../../api-contracts/reports/cipher-report.query.params';
-import { FinancialInstitution } from '../../../../../api-contracts/financial-institution/financial.institution';
+import { CipherReportQueryParams } from 'api-contracts/reports/cipher-report.query.params';
+import { FinancialInstitution } from 'api-contracts/financial-institution/financial.institution';
 import * as _ from 'lodash';
 import { ApplicationSettingsModelService } from '../../../models/application-settings/application-settings.model.service';
-import { ApplicationSetting } from '../../../../../api-contracts/application-setting/application-setting';
+import { ApplicationSetting } from 'api-contracts/application-setting/application-setting';
 
 const router = express.Router();
 

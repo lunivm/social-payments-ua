@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { PersonAccounts } from '../../../../api-contracts/person-accounts/person-accounts';
+import { PersonAccounts } from 'api-contracts/person-accounts/person-accounts';
 
 const personAccountsModel = new Schema({
   personId: {

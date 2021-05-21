@@ -1,9 +1,9 @@
-import { FinancialInstitution } from '../../../../api-contracts/financial-institution/financial.institution';
-import { Payment } from '../../../../api-contracts/payment/payment';
-import { PaymentsFilter } from '../../../../api-contracts/payment/payments-filter';
-import { PaymentsLatest } from '../../../../api-contracts/payment/payments-latest';
-import { Person } from '../../../../api-contracts/person/person';
-import { Street } from '../../../../api-contracts/street/street';
+import { FinancialInstitution } from 'api-contracts/financial-institution/financial.institution';
+import { Payment } from 'api-contracts/payment/payment';
+import { PaymentsFilter } from 'api-contracts/payment/payments-filter';
+import { PaymentsLatest } from 'api-contracts/payment/payments-latest';
+import { Person } from 'api-contracts/person/person';
+import { Street } from 'api-contracts/street/street';
 import { clientBroadcastService } from '../../services/client-broadcast.service';
 import { FinancialInstitutionModelService } from '../financial-institution/financial-institution.model.service';
 import { MongoosePromise } from '../mongoose-promise';
@@ -14,7 +14,7 @@ import { UserModel } from '../user/user.model';
 import { PaymentModel } from './payment.model';
 import { CodeKEKModelService } from '../code-kek/code-kek.model.service';
 import { CodeKFKModelService } from '../code-kfk/code-kfk.model.service';
-import { PaymentBatchUpdate } from '../../../../api-contracts/payment/payment-batch-update';
+import { PaymentBatchUpdate } from 'api-contracts/payment/payment-batch-update';
 
 export class PaymentModelService {
   private static readonly sorting = '-date -created';

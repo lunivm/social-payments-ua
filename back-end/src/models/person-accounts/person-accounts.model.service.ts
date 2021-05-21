@@ -1,5 +1,5 @@
-import { PersonAccounts } from '../../../../api-contracts/person-accounts/person-accounts';
-import { PersonFinancialInstitutions } from '../../../../api-contracts/person-accounts/person-financial-institutions';
+import { PersonAccounts } from 'api-contracts/person-accounts/person-accounts';
+import { PersonFinancialInstitutions } from 'api-contracts/person-accounts/person-financial-institutions';
 import { clientBroadcastService } from '../../services/client-broadcast.service';
 import { MongoosePromise } from '../mongoose-promise';
 import { PersonAccountInfo } from './person-account-info';

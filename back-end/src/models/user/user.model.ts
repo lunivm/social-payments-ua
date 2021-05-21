@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { User } from '../../../../api-contracts/user/user';
+import { User } from 'api-contracts/user/user';
 import { addUserModelMiddleware } from './user.model.middleware';
 
 const userSchema = new Schema({

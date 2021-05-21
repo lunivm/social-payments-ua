@@ -1,4 +1,4 @@
-import { FinancialInstitution } from '../../../../api-contracts/financial-institution/financial.institution';
+import { FinancialInstitution } from 'api-contracts/financial-institution/financial.institution';
 import { clientBroadcastService } from '../../services/client-broadcast.service';
 import { MongoosePromise } from '../mongoose-promise';
 import { FinancialInstitutionModel } from './financial-institution.model';

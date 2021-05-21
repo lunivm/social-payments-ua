@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { Person } from '../../../../api-contracts/person/person';
+import { Person } from 'api-contracts/person/person';
 
 export const personSchemaFields = {
   fullName: {
