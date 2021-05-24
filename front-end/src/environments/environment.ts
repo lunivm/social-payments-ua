@@ -7,7 +7,8 @@ import { DataQueriesModel } from './data-queries.model';
 const dataQueries: DataQueriesModel = {
   loginEndpoint: 'http://localhost:3000/login',
   apiEndpoint: 'http://localhost:3000/api',
-  reportsEndpoint: 'http://localhost:3000/generated-reports'
+  reportsEndpoint: 'http://localhost:3000/generated-reports',
+  websocket: 'localhost:3000'
 };
 
 export const environment = {

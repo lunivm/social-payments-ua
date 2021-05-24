@@ -18,13 +18,13 @@ import { MainProgressBarService } from './main-progress-bar.service';
 export class MainProgressBarComponent implements OnInit {
   public progressItems: MainProgressBarItemModel[] = [];
 
-  public progress: number = 0;
+  public progress = 0;
 
   @HostBinding('class.sp-loading-completed')
-  public completed: boolean = false;
+  public completed = false;
 
   @HostBinding('style.display')
-  public displayBinding: string = 'block';
+  public displayBinding = 'block';
 
   constructor(private cdRef: ChangeDetectorRef, private mainProgressBarService: MainProgressBarService) { }
 
@@ -42,7 +42,7 @@ export class MainProgressBarComponent implements OnInit {
 
         this.setCompleted(false);
         this.progressItems = items;
-        this.progress= this.getProgressWidth();
+        this.progress = this.getProgressWidth();
         this.cdRef.markForCheck();
       });
   }

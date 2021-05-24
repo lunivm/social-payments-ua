@@ -5,3 +5,5 @@ back-end/spec
 front-end/node_modules
 front-end/dist
 front-end/e2e
+
+database/node_modules

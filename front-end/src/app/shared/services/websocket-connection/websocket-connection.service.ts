@@ -12,12 +12,15 @@ import { WebsocketMessageCommon } from '../../../../../../api-contracts/websocke
 import { WindowProvider } from '../../providers/window-provider';
 import { AuthService } from '../auth.service';
 import { WebsocketChannel } from './websocket-channel.type';
+import { SpDialogType } from '../../components/dialog/sp-dialog-type.enum';
+import { SpDialogService } from '../../components/dialog/sp-dialog.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class WebsocketConnectionService {
-  public readonly websocketConnect$: Observable<void>;
-
   private static readonly reconnectTimeout = 1000; // ms
+
+  public readonly websocketConnect$: Observable<void>;
 
   /**
    * Subject for informing about the connection happened event
@@ -36,7 +39,7 @@ export class WebsocketConnectionService {
    */
   private socketChannelsSubject = new Subject<WebsocketMessage>();
 
-  constructor(private window: WindowProvider, private authService: AuthService) {
+  constructor(private window: WindowProvider, private authService: AuthService, private spDialogService: SpDialogService) {
     this.websocketConnect$ = this.websocketConnectSubject.asObservable();
   }
 
@@ -53,10 +56,22 @@ export class WebsocketConnectionService {
 
     this.socketSubjectSubscription = this.socketSubject.subscribe(
       (msg: WebsocketMessage) => {
-        console.log('~~~ websocket message', msg);
         this.socketChannelsSubject.next(msg);
       },
-      (err: Event) => console.log('~~~ websocket ERROR', err),
+      (err: Event) => {
+        console.log('~~~ websocket ERROR', err);
+
+        const text = `Помилка відкриття websocket. readyState ${(err.currentTarget as any).readyState}`;
+        this.spDialogService.open(
+          {
+            type: SpDialogType.Alert,
+            title: 'Помилка',
+            text
+          },
+          {
+            panelClass: 'sp-login-error-alert'
+          });
+      },
       () => console.log('~~~ websocket complete')
     );
   }
@@ -69,12 +84,11 @@ export class WebsocketConnectionService {
           action: message.action,
           payload: message.payload as any
         }))
-      )
+      );
   }
 
   private createSocketSubject() {
     const protocol = this.window.location.protocol.indexOf('https') >= 0 ? 'wss' : 'ws';
-    const hostname = this.window.location.hostname;
 
     if (this.socketSubject) {
       this.socketSubject.unsubscribe();
@@ -82,7 +96,7 @@ export class WebsocketConnectionService {
     }
 
     this.socketSubject = new WebSocketSubject({
-      url: `${protocol}://${hostname}`,
+      url: `${protocol}://${environment.dataQueries.websocket}`,
       protocol: this.authService.getToken(),
       openObserver: {
         next: this.onWebsocketOpen.bind(this)
@@ -101,7 +115,7 @@ export class WebsocketConnectionService {
     this.reconnectOnClose = true;
 
     // setting timeout to give some time spot for server starting activities in case of connection after server restarts
-    setTimeout(() => this.websocketConnectSubject.next(), WebsocketConnectionService.reconnectTimeout)
+    setTimeout(() => this.websocketConnectSubject.next(), WebsocketConnectionService.reconnectTimeout);
   }
 
   private onWebsocketClose(closeEvent: CloseEvent): void {
