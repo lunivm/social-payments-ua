@@ -1,7 +1,7 @@
 {
   "description": "This is default config for dev env. Each property can be overwritten with env variable. All app config keys are here",
-  "MONGODB_URI": "mongodb://localhost/social-payments-ua",
-  "PORT": 80,
+  "MONGODB_URI": "mongodb://db/social-payments-ua",
+  "PORT": 3000,
   "SP_SERVE_STATIC": false,
   "SP_ALLOW_CORS": true,
   "SP_PROTOCOL": "HTTP"

@@ -7,6 +7,7 @@ import { Logger } from '../logger/logger';
 function connectMongoose() {
   mongoose.set('useCreateIndex', true);
   // mongoose.set('debug', true);
+  // console.log('!!!!!!!!!!!!!! MONGODB_URI', Config.db.uri);
 
   mongoose.connect(Config.db.uri, {
     useNewUrlParser: true
@@ -22,10 +23,10 @@ function connectMongoose() {
     Logger.log(LogLevel.info, 'db connection opened');
   });
 
-  process.on('SIGINT', function(){
+  process.on('SIGINT', function() {
     mongoose.connection.close(() => {
       Logger.log(LogLevel.info, 'Termination, mongoose default connection is disconnected due to application termination');
-      process.exit(0)
+      process.exit(0);
     });
   });
 }
@@ -37,9 +38,9 @@ function connectDriver() {
     if (!err) {
       Logger.log(LogLevel.info, 'Driver connection set');
     } else {
-      Logger.log(LogLevel.error, `Error during db conection ${err}`);
+      Logger.log(LogLevel.error, `Error during db connection ${err}`);
     }
-  })
+  });
 }
 
 export function connectDb() {
