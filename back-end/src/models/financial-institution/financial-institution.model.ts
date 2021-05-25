@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { FinancialInstitution } from '../../../../api-contracts/financial-institution/financial.institution';
+import { FinancialInstitution } from 'api-contracts/financial-institution/financial.institution';
 
 export const financialInstitutionSchema = new Schema({
   name: {

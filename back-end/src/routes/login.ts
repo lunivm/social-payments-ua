@@ -5,8 +5,8 @@ import express, {
   Response
 } from 'express';
 import * as _ from 'lodash';
-import { LoginResponse } from '../../../api-contracts/login/login-response';
-import { User } from '../../../api-contracts/user/user';
+import { LoginResponse } from 'api-contracts/login/login-response';
+import { User } from 'api-contracts/user/user';
 import { HttpError } from '../core/http-error';
 import { Token } from '../core/token/token';
 import { TokenInfo } from '../core/token/token-info';

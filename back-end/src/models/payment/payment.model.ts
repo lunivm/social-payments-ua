@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { Payment } from '../../../../api-contracts/payment/payment';
+import { Payment } from 'api-contracts/payment/payment';
 import { financialInstitutionSchema } from '../financial-institution/financial-institution.model';
 import { personSchemaFields } from '../person/person.model';
 import { streetSchema } from '../street/street.model';

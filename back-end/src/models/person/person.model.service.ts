@@ -1,4 +1,4 @@
-import { Person } from '../../../../api-contracts/person/person';
+import { Person } from 'api-contracts/person/person';
 import { clientBroadcastService } from '../../services/client-broadcast.service';
 import { MongoosePromise } from '../mongoose-promise';
 import { PersonModel } from './person.model';

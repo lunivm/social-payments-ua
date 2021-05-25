@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { Types } from "mongoose";
-import { User } from '../../../../api-contracts/user/user';
+import { User } from 'api-contracts/user/user';
 import { MongoosePromise } from '../mongoose-promise';
 import { UserModel } from './user.model';
 

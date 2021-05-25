@@ -4,7 +4,7 @@ import express, {
   Response
 } from 'express';
 import moment from 'moment';
-import { PeriodReportQueryParams } from '../../../../../api-contracts/reports/period-report.query.params';
+import { PeriodReportQueryParams } from 'api-contracts/reports/period-report.query.params';
 import { PaymentModel } from '../../../models/payment/payment.model';
 import { CommonReport } from '../common-report';
 
@@ -13,7 +13,7 @@ const router = express.Router();
 const getFileName = (startDate: string, endDate: string): string => `period-report_${startDate}_${endDate}.xlsx`;
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  let {startDate, endDate, filename} = req.query as PeriodReportQueryParams;
+  const {startDate, endDate, filename} = req.query as PeriodReportQueryParams;
 
   if (!startDate || !endDate || !moment(startDate).isValid() || !moment(endDate).isValid()) {
     const err: any = new Error('Missed or invalid startDate and/or endDate');

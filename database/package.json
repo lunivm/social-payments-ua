@@ -1,13 +1,12 @@
 {
   "name": "social-payments-ua_database",
   "engines": {
-    "node": "8.11.x"
+    "node": "10.15.x"
   },
   "scripts": {
     "mm": "migrate-mongo",
     "up": "migrate-mongo up",
-    "status": "migrate-mongo status",
-    "build": "npm run up"
+    "status": "migrate-mongo status"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

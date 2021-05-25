@@ -1,4 +1,4 @@
-import { WebsocketMessage } from '../../../api-contracts/websocket-messages/websocket-message';
+import { WebsocketMessage } from 'api-contracts/websocket-messages/websocket-message';
 import { websocketServer } from '../bin/www';
 
 /**

@@ -1,4 +1,4 @@
-import { Street } from '../../../../api-contracts/street/street';
+import { Street } from 'api-contracts/street/street';
 import { clientBroadcastService } from '../../services/client-broadcast.service';
 import { MongoosePromise } from '../mongoose-promise';
 import { StreetModel } from './street.model';

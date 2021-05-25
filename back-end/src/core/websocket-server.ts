@@ -6,7 +6,7 @@ import {
 import { Server as HttpsServer } from 'https';
 import * as WebSocket from 'ws';
 import { Server as WsServer } from 'ws';
-import { WebsocketMessage } from '../../../api-contracts/websocket-messages/websocket-message';
+import { WebsocketMessage } from 'api-contracts/websocket-messages/websocket-message';
 import { Token } from './token/token';
 import { TokenInfo } from './token/token-info';
 
@@ -47,7 +47,7 @@ export class WebsocketServer {
 
   private static verifyClient(info: VerifyClientInfo, cb: VerifyClientCallback): void {
     Token.isValid(info.req.headers[WebsocketServer.tokenHeaderName] as string)
-      .then((tokenInfo: TokenInfo) => tokenInfo.isValid ? cb(true) : cb(false, 401, 'Unauthorized'))
+      .then((tokenInfo: TokenInfo) => tokenInfo.isValid ? cb(true) : cb(false, 401, 'Unauthorized'));
   }
 
   private static onClientConnect(ws: HeartbeatWebSocket) {
