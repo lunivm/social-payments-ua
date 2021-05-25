@@ -28,7 +28,7 @@ export class Config {
       serveStatic: !!nconf.get(ConfigKeys.ServeStatic),
       allowCORS: !!nconf.get(ConfigKeys.AllowCORS),
       protocol: Config.getProtocol(nconf.get(ConfigKeys.Protocol))
-    }
+    };
   }
 
   private static getProtocol(value: AllowedAppProtocolsType): AllowedAppProtocolsType {
