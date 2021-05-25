@@ -9,7 +9,7 @@ module.exports = {
           fullName: 'Адміністратор',
           isAdmin: true,
           created: Date.now(),
-          password: genHash('alfa45')
+          password: genHash('alfa$10')
         })
       );
 
