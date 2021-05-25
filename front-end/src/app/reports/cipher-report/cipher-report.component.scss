@@ -1,0 +1,62 @@
+@import "../../shared/styles/general.variables";
+@import "../../shared/styles/mixins";
+
+.sp-cipher-report-content {
+  margin-top: $input-block-indent;
+}
+
+sp-code-kfk,
+sp-code-kek {
+  margin-top: $input-block-indent;
+  display: block;
+}
+
+.sp-fi-container {
+  margin-top: $input-block-indent * 3;
+}
+
+.sp-input-group {
+  margin-top: $input-block-indent * 2;
+}
+
+sp-financial-institution {
+  margin-top: $input-block-indent / 2;
+
+  ::ng-deep {
+    .sp-financial-institution-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .sp-financial-field {
+      flex: 0 0 auto;
+      width: 180px;
+      margin-right: $input-inline-indent;
+
+      &.sp-financial-name {
+        flex: 1 1 0;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .sp-cipher-fi-autocomplete {
+    .mat-option-text {
+      display: flex;
+    }
+
+    .sp-fi-mfo {
+      @include flex-width(200px);
+    }
+
+    .sp-fi-edrpou {
+      @include flex-width(200px);
+    }
+  }
+}
+
+.sp-submit-report {
+  margin-top: $input-block-indent;
+}

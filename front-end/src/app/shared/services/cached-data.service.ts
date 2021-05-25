@@ -1,23 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
-import {
-  map,
-  take
-} from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { apiEndpoint } from '../constants/api-endpoint';
+import { environment } from '../../../environments/environment';
+import { MainProgressBarService } from '../../layout/main-progress-bar/main-progress-bar.service';
+import { MainProgressBerItemStatusEnum } from '../../layout/main-progress-bar/main-progress-ber-item-status.enum';
+import { WebsocketConnectionService } from './websocket-connection/websocket-connection.service';
+import { WebsocketDataService } from './websocket-data.service';
 
-export abstract class CachedDataService<T> {
+export abstract class CachedDataService<T> extends WebsocketDataService<T> {
+  protected dataObserver = new ReplaySubject<T[]>(1);
+
   protected abstract readonly requestUrl: string;
-  protected abstract http: HttpClient;
+  protected abstract readonly mainProgressBarItemCaption: string;
 
-  private dataObserver: ReplaySubject<T[]>;
+  protected constructor(
+    protected http: HttpClient,
+    protected mainProgressBarService: MainProgressBarService,
+    websocketConnectionService: WebsocketConnectionService
+  ) {
+    super(websocketConnectionService);
+  }
 
-  protected constructor() {}
+  public connect() {
+    this.mainProgressBarService.add(this.mainProgressBarItemCaption);
+
+    if (this.dataObserver.hasError) {
+      this.dataObserver = new ReplaySubject<T[]>(1);
+    }
+
+    this.requestData();
+    this.connectWebsocketChannel();
+  }
 
   public getData(filter?: any): Observable<T[]> {
-    this.validateCache();
     const obs = this.dataObserver.asObservable();
 
     return filter ? obs
@@ -28,8 +45,6 @@ export abstract class CachedDataService<T> {
   }
 
   public getById(id: string): Observable<T> {
-    this.validateCache();
-
     return this.dataObserver.asObservable()
       .pipe(
         map((items) => _.find<T>(items, {_id: id} as any)),
@@ -37,15 +52,17 @@ export abstract class CachedDataService<T> {
       );
   }
 
-  private validateCache() {
-    if (!this.dataObserver) {
-      this.dataObserver = new ReplaySubject<T[]>(1);
-      this.requestData();
-    }
-  }
-
   private requestData() {
-    this.http.get(`${apiEndpoint}${this.requestUrl}`)
-      .subscribe((res: T[]) => this.dataObserver.next(res));
+    this.http.get(`${environment.dataQueries.apiEndpoint}${this.requestUrl}`)
+      .subscribe(
+        (res: T[]) => {
+          this.dataObserver.next(res);
+          this.mainProgressBarService.setStatus(this.mainProgressBarItemCaption, MainProgressBerItemStatusEnum.Success);
+        },
+        (err: any) => {
+          this.dataObserver.error(err);
+          this.mainProgressBarService.setStatus(this.mainProgressBarItemCaption, MainProgressBerItemStatusEnum.Error);
+        }
+      );
   }
 }

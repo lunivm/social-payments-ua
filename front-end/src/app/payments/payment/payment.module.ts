@@ -10,6 +10,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { PaymentComponent } from './payment.component';
 import { SelectPersonAccountDialogComponent } from './select-person-account-dialog/select-person-account-dialog.component';
 import { SelectPersonAccountDialogService } from './select-person-account-dialog/select-person-account-dialog.service';
+import { CodeKFKModule } from '../../shared/components/code-kfk/code-kfk.module';
+import { CodeKEKModule } from '../../shared/components/code-kek/code-kek.module';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { SelectPersonAccountDialogService } from './select-person-account-dialog
     PersonAccountsModule,
     PersonModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    CodeKFKModule,
+    CodeKEKModule
   ],
   entryComponents: [PaymentComponent, SelectPersonAccountDialogComponent],
   declarations: [PaymentComponent, SelectPersonAccountDialogComponent],

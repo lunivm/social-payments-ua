@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { User } from '../../../../api-contracts/user/user';
+import { User } from 'api-contracts/user/user';
 import { addUserModelMiddleware } from './user.model.middleware';
 
 const userSchema = new Schema({
@@ -21,7 +21,11 @@ const userSchema = new Schema({
     required: [true]
   },
   token: String,
-  isAdmin: Boolean
+  isAdmin: Boolean,
+  created: {
+    type: Date,
+    required: [true]
+  }
 });
 
 addUserModelMiddleware(userSchema);

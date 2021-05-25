@@ -1,32 +1,39 @@
-<div class="sp-action-panel">
-  <button mat-raised-button color="primary" (click)="openUserDialog()">{{selectedUser ? 'Редагувати' : 'Додати'}}</button>
+<ng-container *ngIf="!showInProgress; else inProgress">
+  <div class="sp-action-panel">
+    <button mat-raised-button color="primary" (click)="openUserDialog()">{{selectedUser ? 'Редагувати' : 'Додати'}}</button>
 
-  <button mat-raised-button color="accent" [disabled]="!selectedUser" (click)="removeUser()">Видалити</button>
-</div>
+    <button mat-raised-button color="accent" [disabled]="!selectedUser" (click)="removeUser()">Видалити</button>
+  </div>
 
-<mat-table [dataSource]="usersDataSource"
-  [trackBy]="usersTrackFn"
-  (spClickedOutside)="selectedUser = null"
-  [spInsideExcludeSelector]="'mat-header-row'">
-  <ng-container matColumnDef="login">
-    <mat-header-cell *matHeaderCellDef>Логін</mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.login}}</mat-cell>
-  </ng-container>
+  <mat-table [dataSource]="usersDataSource"
+    [trackBy]="usersTrackFn"
+    (spClickedOutside)="selectedUser = null"
+    [spInsideExcludeSelector]="'mat-header-row'">
+    <ng-container matColumnDef="login">
+      <mat-header-cell *matHeaderCellDef>Логін</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.login}}</mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="fullName">
-    <mat-header-cell *matHeaderCellDef>Повне ім'я</mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.fullName}}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef>Повне ім'я</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fullName}}</mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="admin">
-    <mat-header-cell *matHeaderCellDef>Адміністратор</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <mat-icon *ngIf="row.isAdmin" color="accent">check_box</mat-icon>
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="admin">
+      <mat-header-cell *matHeaderCellDef>Адміністратор</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-icon *ngIf="row.isAdmin" color="accent">check_box</mat-icon>
+      </mat-cell>
+    </ng-container>
 
-  <mat-header-row #tableHeader *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"
-    [attr.selected]="selectedUser === row ? true : null"
-    (click)="rowClick(row)"></mat-row>
-</mat-table>
+    <mat-header-row #tableHeader *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+      [attr.selected]="selectedUser === row ? true : null"
+      (click)="rowClick(row)"></mat-row>
+  </mat-table>
+</ng-container>
+
+<ng-template #inProgress>
+  <mat-spinner></mat-spinner>
+</ng-template>
+

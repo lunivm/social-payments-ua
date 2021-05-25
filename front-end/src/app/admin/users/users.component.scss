@@ -3,6 +3,10 @@
 :host {
   display: flex;
   flex-direction: column;
+
+  mat-spinner {
+    margin: 5em auto;
+  }
 }
 
 .sp-action-panel {

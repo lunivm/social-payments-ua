@@ -1,23 +1,8 @@
-import express, {
-  NextFunction,
-  Request,
-  Response
-} from 'express';
-import { Street } from '../../../../../api-contracts/street/street';
-import { StreetModel } from '../../../models/street/street.model';
+import express from 'express';
+import { StreetsController } from './streets.controller';
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  return StreetModel
-    .find()
-    .sort('name')
-    .then(
-      (streets: Street[]) => res.send(streets),
-      (err) => next(err)
-    );
-});
+router.get('/', StreetsController.getAll);
 
 export const streetsRouter = router;
-
-

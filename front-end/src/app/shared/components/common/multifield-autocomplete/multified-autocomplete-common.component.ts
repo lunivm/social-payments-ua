@@ -12,13 +12,15 @@ import {
   Validators
 } from '@angular/forms';
 import {
+  filter,
   skip,
   tap
 } from 'rxjs/operators';
 import { FinancialInstitution } from '../../../../../../../api-contracts/financial-institution/financial.institution';
 import { FilterUtils } from '../../../utils/filter-utils';
+import { UnsubscribableComponent } from '../unsubscribable.component';
 
-export abstract class MultifiedAutocompleteCommonComponent {
+export abstract class MultifiedAutocompleteCommonComponent extends UnsubscribableComponent {
   @Input() public set id(val: string) {
     this.currId = val;
 
@@ -32,6 +34,7 @@ export abstract class MultifiedAutocompleteCommonComponent {
   @Input() public renderClearButton: boolean = true;
   @Input() public renderValidationErrors: boolean = true;
   @Input() public autocompleteClasses: string;
+  @Input() public renderAutocomplete = true;
 
   @Output() public idChange = new EventEmitter<string>();
 
@@ -41,7 +44,9 @@ export abstract class MultifiedAutocompleteCommonComponent {
 
   private currId: string = null;
 
-  protected constructor(private cdRef: ChangeDetectorRef, protected fb: FormBuilder) {}
+  protected constructor(protected cdRef: ChangeDetectorRef, protected fb: FormBuilder) {
+    super();
+  }
 
   protected getConditionalValidator(): ValidationErrors | null {
     return this.renderValidationErrors ? Validators.required : null;
@@ -66,13 +71,13 @@ export abstract class MultifiedAutocompleteCommonComponent {
   protected ngOnInit(): void {
     this.createForm();
     this.initControls();
-    this.initReset();
+    this.initResetStateFlagWatcher();
   }
 
-  protected initReset(): void {
+  protected initResetStateFlagWatcher(): void {
     this.form.valueChanges
       .pipe(
-        skip(1),
+        filter(() => this.form.dirty),
         tap(() => {
           this.consolidateId(null);
           this.form.patchValue({_id: this.id}, {emitEvent: false});

@@ -6,7 +6,7 @@
   [class]="'sp-autocomplete-panel ' + (autocompleteClasses || '')"
   (optionSelected)="itemSelected.emit($event)">
 
-  <perfect-scrollbar [config]="{minScrollbarLength: 60}" >
+  <perfect-scrollbar *ngIf="renderAutocomplete" [config]="defaultPerfectScrollbarConfig" >
     <mat-option *ngFor="let item of filteredItems | async"
       class="sp-autocomplete-option"
       [value]="item">

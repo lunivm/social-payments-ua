@@ -12,9 +12,9 @@ import {
 })
 export class PaymentsDashboardComponent implements OnInit {
 
-  constructor() { console.log('PaymentsDashboardComponent created');}
+  constructor() {}
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }

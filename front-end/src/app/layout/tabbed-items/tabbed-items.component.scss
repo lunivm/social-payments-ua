@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import '../../shared/styles/general.variables';
+@import '../../shared/styles/mixins';
 
 :host {
   display: flex;
@@ -26,9 +27,7 @@
   width: 100%;
 
   .sp-mat-sidenav {
-    padding: 0 12px;
-    background-color: mat-color($mat-gray, 100);
-    box-shadow: -5px 0 $shadow-size mat-color($mat-gray, 900);
+    @include sidenav-panel();
   }
 }
 
@@ -69,4 +68,8 @@
       cursor: default;
     }
   }
+}
+
+.sp-tabbed-panel-icon {
+  color: mat-color($mat-grey, 700);
 }

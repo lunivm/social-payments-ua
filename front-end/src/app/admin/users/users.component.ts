@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnDestroy,
   OnInit
 } from '@angular/core';
 import {
@@ -12,10 +11,10 @@ import {
 import * as _ from 'lodash';
 import {
   filter,
-  map
+  finalize
 } from 'rxjs/operators';
 import { User } from '../../../../../api-contracts/user/user';
-import { UnsubscribableComponent } from '../../shared/components/common/unsubscribable-component';
+import { UnsubscribableComponent } from '../../shared/components/common/unsubscribable.component';
 import { SpDialogType } from '../../shared/components/dialog/sp-dialog-type.enum';
 import { SpDialogService } from '../../shared/components/dialog/sp-dialog.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
@@ -33,6 +32,8 @@ export class UsersComponent extends UnsubscribableComponent implements OnInit {
   public usersDataSource = new MatTableDataSource();
   public selectedUser: User = null;
 
+  public showInProgress = true;
+
   constructor(
     private cdRef: ChangeDetectorRef,
     private dialog: MatDialog,
@@ -43,10 +44,13 @@ export class UsersComponent extends UnsubscribableComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.componentSubscriptions = this.usersService.getUsers().subscribe((users: User[]) => {
-      this.usersDataSource.data = _.sortBy(users, ['login']);
-      this.cdRef.markForCheck();
-    });
+    this.componentSubscriptions.add(this.usersService.getUsers()
+      .subscribe((users: User[]) => {
+        this.usersDataSource.data = _.sortBy(users, ['login']);
+        this.showInProgress = false;
+        this.cdRef.markForCheck();
+      })
+    );
   }
 
   public usersTrackFn(index: number, user: User): string {

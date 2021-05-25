@@ -1,0 +1,16 @@
+<mat-form-field>
+  <input matInput
+    [formControl]="codeKEK"
+    name="codeKEK"
+    autocomplete="off"
+    placeholder="Код КЕК"
+    [matAutocomplete]="codeKEKAutocomplete">
+  <mat-error *ngIf="codeKEK.invalid && codeKEK.hasError('required')">Введіть код КЕК</mat-error>
+
+  <mat-autocomplete #codeKEKAutocomplete="matAutocomplete">
+    <perfect-scrollbar [config]="defaultPerfectScrollbarConfig" >
+      <mat-option *ngFor="let item of codeKEKService.getData() | async" [value]="item.code">{{item.code}}</mat-option>
+    </perfect-scrollbar>
+  </mat-autocomplete>
+
+</mat-form-field>

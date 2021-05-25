@@ -1,9 +1,21 @@
 <mat-toolbar color="primary" class="sp-top-panel">
   <nav class="sp-nav">
-    <a class="sp-nav-link" routerLink="/payments" mat-button>Платежі</a>
-    <a class="sp-nav-link" routerLink="/reports" mat-button>Звіти</a>
-    <a class="sp-nav-link" routerLink="/admin" mat-button>Адміністрування</a>
+    <button class="sp-nav-link" routerLink="/payments" mat-button>Платежі</button>
+    <button class="sp-nav-link" routerLink="/reports" mat-button>Звіти</button>
+    <button *ngIf="currentUserService.getUser().isAdmin" class="sp-nav-link" routerLink="/admin" mat-button>Адміністрування</button>
   </nav>
+
+  <div class="sp-nav-user">
+    <span class="sp-nav-curr-user" title="Поточний користувач">
+      <span>{{currentUserService.getUser().fullName}}</span>
+    </span>
+
+    <a mat-button
+      title="Вийти"
+      color="warn"
+      class="sp-nav-icon"
+      (click)="logout()"><mat-icon color="warn">vpn_key</mat-icon></a>
+  </div>
 </mat-toolbar>
 <section class="sp-body">
   <ng-content></ng-content>

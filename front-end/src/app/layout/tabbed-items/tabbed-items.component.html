@@ -6,7 +6,7 @@
     <mat-nav-list>
       <ng-template ngFor let-item [ngForOf]="availableTabs">
         <mat-list-item (click)="addTab(item)">
-          <mat-icon matListIcon>{{item.icon}}</mat-icon>
+          <mat-icon class="sp-tabbed-panel-icon" matListIcon>{{item.icon}}</mat-icon>
           <h3 matLine>{{item.title}}</h3>
         </mat-list-item>
 

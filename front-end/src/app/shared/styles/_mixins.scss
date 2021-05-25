@@ -1,4 +1,13 @@
+@import '~@angular/material/theming';
+@import 'general.variables';
+
 @mixin flex-width($width) {
   flex: 0 0 auto;
   width: $width;
+}
+
+@mixin sidenav-panel() {
+  padding: 0 12px;
+  background-color: mat-color($mat-gray, 100);
+  box-shadow: -5px 0 $shadow-size mat-color($mat-gray, 900);
 }

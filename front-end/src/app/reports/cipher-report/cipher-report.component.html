@@ -1,0 +1,74 @@
+<mat-card class="sp-cipher-report">
+  <div>
+    <mat-card-title class="sp-cipher-report-header">
+      Шифр за дату
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+  </div>
+
+  <mat-card-content class="sp-cipher-report-content">
+    <div class="sp-date-select-container">
+      <mat-form-field class="sp-date-period">
+        <input matInput
+          required
+          autocomplete="off"
+          placeholder="Дата рішення"
+          #dateInputModel="ngModel"
+          [matDatepicker]="dateCmp"
+          [(ngModel)]="date">
+        <mat-datepicker-toggle matSuffix [for]="dateCmp"></mat-datepicker-toggle>
+        <mat-datepicker #dateCmp></mat-datepicker>
+        <mat-error *ngIf="dateInputModel.invalid && dateInputModel.hasError('required')">Вкажіть дату рішення
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="sp-input-group">
+      <mat-form-field>
+        <input matInput
+          required
+          autocomplete="off"
+          placeholder="Номер рішення"
+          #reportNumberModel="ngModel"
+          [(ngModel)]="reportNumber">
+        <mat-error *ngIf="reportNumberModel.invalid && reportNumberModel.hasError('required')">Введіть номер рішення
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <sp-code-kfk></sp-code-kfk>
+    <sp-code-kek></sp-code-kek>
+
+
+    <div class="sp-input-group">
+      <mat-form-field>
+        <input matInput
+          required
+          autocomplete="off"
+          placeholder="Код реєстру виплат (№ п/п)"
+          #cipherCodeModel="ngModel"
+          [(ngModel)]="cipherCode">
+        <mat-error *ngIf="cipherCodeModel.invalid && cipherCodeModel.hasError('required')">Введіть № реєстру виплат
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="sp-input-group">
+      <div class="sp-fi-container">
+        <span>Фінансова установа:</span>
+        <sp-financial-institution [autocompleteClasses]="'sp-cipher-fi-autocomplete'"
+          [renderClearButton]="false"
+          [renderValidationErrors]="false"></sp-financial-institution>
+      </div>
+    </div>
+
+    <button mat-raised-button
+      class="sp-submit-report"
+      color="primary"
+      [disabled]="buttonDisabled"
+      (click)="onGenerateClick()">
+      Сформувати звіт
+    </button>
+  </mat-card-content>
+</mat-card>

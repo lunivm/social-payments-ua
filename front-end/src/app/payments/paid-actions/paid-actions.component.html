@@ -1,0 +1,97 @@
+<mat-card>
+  <div>
+    <mat-card-title>
+      Оплата платежів
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+  </div>
+
+  <mat-card-content class="sp-paid-action-content">
+    <div class="sp-actions-container">
+      <div class="sp-flex sp-justify-sb">
+        <div class="sp-inputs-container">
+          <mat-form-field class="sp-datepicker">
+            <input matInput
+              autocomplete="off"
+              placeholder="Дата рішення"
+              [matDatepicker]="dateCmp"
+              [(ngModel)]="date">
+            <mat-datepicker-toggle matSuffix [for]="dateCmp"></mat-datepicker-toggle>
+            <mat-datepicker #dateCmp></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="sp-report-number">
+            <input matInput
+              autocomplete="off"
+              placeholder="Номер рішення"
+              [(ngModel)]="reportNumber">
+          </mat-form-field>
+
+          <button mat-raised-button
+            class="sp-request-items"
+            color="primary"
+            [disabled]="buttonDisabled"
+            (click)="onFindClick()">
+            <mat-icon aria-label="Search icon">search</mat-icon>
+            Знайти
+          </button>
+        </div>
+
+        <div class="sp-inputs-container">
+          <button mat-raised-button
+            class="sp-pay-btn"
+            color="accent"
+            [disabled]="(paidFilter.asObservable() | async) !== null"
+            (click)="setPaidStatus(true)">
+            <mat-icon aria-label="Search icon">attach_money</mat-icon>
+            Оплатити
+          </button>
+
+          <button mat-raised-button
+            [disabled]="(paidFilter.asObservable() | async) !== null"
+            (click)="setPaidStatus(false)">
+            <mat-icon aria-label="Search icon">money_off</mat-icon>
+            Відмінити оплату
+          </button>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="sp-total-result-filter sp-align">
+        <div class="sp-filter-caption">
+          Фільтрувати:
+        </div>
+
+        <mat-radio-group [disabled]="!(payments | async).length"
+          [ngModel]="(payments | async).length > 0 ? (paidFilter.asObservable() | async) : undefined"
+          (change)="onPaidFlagClick($event.value)">
+          <mat-radio-button [value]="true">Оплачені</mat-radio-button>
+          <mat-radio-button [value]="false">Не оплачені</mat-radio-button>
+          <mat-radio-button [value]="null">Всі</mat-radio-button>
+        </mat-radio-group>
+
+        <div class="sp-total-result-caption">
+          <span>{{(paymentsFiltered | async).length}} платежів на суму {{paymentsTotalSum | async}} грн.</span>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="sp-table-container">
+      <sp-history-table *ngIf="!showLoadingIndicator && (paymentsFiltered | async).length"
+        class="sp-payments-history-table"
+        [payments]="paymentsFiltered | async"></sp-history-table>
+
+      <section *ngIf="statusTextDescription" class="sp-payments-history-message">
+        <h1>{{statusTextDescription}}</h1>
+      </section>
+
+      <section *ngIf="showLoadingIndicator" class="sp-table-loading-indicator">
+        <mat-spinner></mat-spinner>
+      </section>
+    </div>
+  </mat-card-content>
+</mat-card>

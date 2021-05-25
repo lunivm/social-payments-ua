@@ -1,0 +1,15 @@
+<mat-form-field>
+  <input matInput
+    [formControl]="codeKFK"
+    name="codeKFK"
+    autocomplete="off"
+    placeholder="Код КФК"
+    [matAutocomplete]="codeKFKAutocomplete">
+  <mat-error *ngIf="codeKFK.invalid && codeKFK.hasError('required')">Введіть код КФК</mat-error>
+
+  <mat-autocomplete #codeKFKAutocomplete="matAutocomplete">
+    <perfect-scrollbar [config]="defaultPerfectScrollbarConfig" >
+      <mat-option *ngFor="let item of codeKFKService.getData() | async" [value]="item.code">{{item.code}}</mat-option>
+    </perfect-scrollbar>
+  </mat-autocomplete>
+</mat-form-field>

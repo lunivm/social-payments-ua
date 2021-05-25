@@ -74,6 +74,20 @@
   }
 }
 
+.sp-period-select-container {
+  margin-right: $input-inline-indent * 2;
+
+  > mat-form-field {
+    margin-right: $input-inline-indent;
+    width: 189px;
+  }
+}
+
+.sp-codes-container > * {
+  margin-right: $input-inline-indent;
+  width: 132px;
+}
+
 sp-financial-institution {
   flex: 1;
 

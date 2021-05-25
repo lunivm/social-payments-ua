@@ -1,0 +1,65 @@
+<mat-card>
+  <mat-card-title>Останні платежі:</mat-card-title>
+
+  <perfect-scrollbar (psYReachEnd)="onScrollBottom()">
+    <mat-divider></mat-divider>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let payment of latestPaymentsService.items$ | async"
+        class="sp-latest-payment-item">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{moment(payment.date).format(displayDateFormat)}}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <div class="sp-payment-sum">{{payment.sum}}грн.</div>
+
+            <div>
+              <div class="sp-latest-payment-fullname"><strong>{{payment.person.fullName}}</strong></div>
+              <span class="sp-latest-payment-description">{{payment.description}}</span>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <section>
+          <p>Фін. установа</p>
+          <span>Р/р: {{payment.accountNumber}}, </span>
+          <span>МФО: {{payment.financialInstitution.mfo}}, </span>
+          <span>ЄДРПОУ: {{payment.financialInstitution.edrpou}}, </span>
+          <span>{{payment.financialInstitution.name}}</span>
+        </section>
+
+        <br/><br/>
+
+        <section>
+          <p>Одержувач</p>
+          <span>{{payment.person.fullName}}, </span>
+          <span>{{payment.person.passportNumber}}, </span>
+          <span>ідент.код: {{payment.person.identityCode}}</span>
+          <div>
+            {{PersonHelper.getPersonAddress(payment.person.address)}}
+          </div>
+          <span></span>
+        </section>
+
+        <br/><br/>
+
+        <section>
+          <button mat-raised-button color="primary" (click)="onOpenClick(payment)">Відкрити</button>
+        </section>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="renderLoading$ | async"
+        class="sp-latest-payments-loading"
+        [disabled]="true"
+        [hideToggle]="true">
+        <mat-expansion-panel-header [collapsedHeight]="'150px'">
+          <mat-spinner></mat-spinner>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+
+  </perfect-scrollbar>
+</mat-card>

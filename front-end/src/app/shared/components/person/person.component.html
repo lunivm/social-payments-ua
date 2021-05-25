@@ -26,7 +26,6 @@
           autocomplete="off"
           formControlName="passportNumber"
           placeholder="Серія та номер паспорта"
-          [spInputFilter]="passportNumberLetter"
           [spProxyAutocompleteCommands]="autocomplete">
         <mat-error *ngIf="renderValidationErrors && passportNumber.invalid && passportNumber.hasError('required')">Введіть cерію та номер паспорта</mat-error>
       </mat-form-field>
@@ -36,7 +35,6 @@
           autocomplete="off"
           formControlName="identityCode"
           placeholder="Ідентифікаційний код"
-          spInputFilter="[0-9]"
           [spProxyAutocompleteCommands]="autocomplete">
         <mat-error *ngIf="renderValidationErrors && identityCode.invalid && identityCode.hasError('required')">Введіть ідентифікаційний код</mat-error>
       </mat-form-field>
@@ -87,6 +85,7 @@
     </div>
 
     <sp-multifield-autocomplete #autocomplete
+      [renderAutocomplete]="renderAutocomplete"
       [autocompleteClasses]="autocompleteClasses"
       [items]="personService.getData() | async"
       [filter$]="personAutocompleteFilter$"

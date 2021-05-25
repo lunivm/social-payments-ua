@@ -7,8 +7,7 @@
       name="login"
       type="text"
       placeholder="Логін"
-      required
-      spInputFilter="[a-z0-9]">
+      required>
     <mat-hint>Латинські літери та цифри</mat-hint>
     <mat-error *ngIf="login.invalid && login.hasError('required')">Введіть логін</mat-error>
   </mat-form-field>
@@ -19,8 +18,7 @@
       name="fullName"
       type="text"
       placeholder="Повне ім'я"
-      required
-      [spInputFilter]="fullNameFilter">
+      required>
     <mat-error *ngIf="fullName.invalid && fullName.hasError('required')">Введіть повне ім'я користувача</mat-error>
     <mat-hint>Прізвище, ім'я, по батькові</mat-hint>
   </mat-form-field>

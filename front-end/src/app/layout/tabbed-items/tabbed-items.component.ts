@@ -13,12 +13,10 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import * as _ from 'lodash';
-import { UnsubscribableComponent } from '../../shared/components/common/unsubscribable-component';
-import {
-  TabbedItemConfig,
-  TabbedItemsConfig
-} from './tabbed-items-config.model';
+import { UnsubscribableComponent } from '../../shared/components/common/unsubscribable.component';
+import { TabbedItemConfig, TabbedItemsConfig } from './tabbed-items-config.model';
 import { TabbedItemsService } from './tabbed-items.service';
+import { TabItemMessageModel } from './tab-item-message.model';
 
 export interface TabbedItemConfigInner extends TabbedItemConfig {
   sticky?: boolean;
@@ -56,12 +54,23 @@ export class TabbedItemsComponent extends UnsubscribableComponent implements OnI
   }
 
   public ngOnInit() {
-    this.componentSubscriptions = this.tabbedItemsService.closeActiveTab$
-      .subscribe(() => {
+    this.componentSubscriptions.add(this.tabbedItemsService.closeActiveTab$
+      .subscribe((index) => {
         if (this.selectedIndex >= 0) {
           this.closeTab(this.selectedIndex);
         }
-      })
+
+        if (index !== null) {
+          this.selectedIndex = index;
+        }
+
+        this.cdRef.detectChanges();
+      }));
+
+    this.componentSubscriptions.add(this.tabbedItemsService.openTab$
+      .subscribe((tabMessage: TabItemMessageModel) => {
+        this.addTab(tabMessage.tab, tabMessage.inputs);
+      }));
   }
 
   public ngAfterViewInit() {
@@ -73,22 +82,26 @@ export class TabbedItemsComponent extends UnsubscribableComponent implements OnI
     });
   }
 
-  public addTab(item: TabbedItemConfig) {
+  public addTab(item: TabbedItemConfig, inputs?: any) {
     if (item.singleInstance && this.activateSingleTab(item)) {
       return;
     }
 
-    this.createTab(item);
+    this.createTab(item, inputs);
   }
 
   public closeTab(index: number) {
     this.openedTabs.splice(index, 1);
   }
 
-  private loadComponent(component: any, container: ViewContainerRef) {
+  private loadComponent(component: any, container: ViewContainerRef, inputs?: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     container.clear();
     const compRef = container.createComponent(componentFactory);
+
+    if (!_.isEmpty(inputs)) {
+      Object.assign(compRef.instance, inputs);
+    }
 
     this.addClass(compRef);
   }
@@ -97,7 +110,7 @@ export class TabbedItemsComponent extends UnsubscribableComponent implements OnI
     this.renderer.addClass(cmp.location.nativeElement, 'sp-tabbed-item-inserted');
   }
 
-  private createTab(item: TabbedItemConfig) {
+  private createTab(item: TabbedItemConfig, inputs?: any) {
     // using new object is mandatory otherwise tabs are not working correctly
     this.openedTabs.push(Object.assign({}, item));
     this.selectedIndex = this.openedTabs.length - 1;
@@ -106,7 +119,7 @@ export class TabbedItemsComponent extends UnsubscribableComponent implements OnI
     this.cdRef.detectChanges();
 
     // load component
-    this.loadComponent(this.openedTabs[this.openedTabs.length - 1].component, this.tabContentRef.last);
+    this.loadComponent(this.openedTabs[this.openedTabs.length - 1].component, this.tabContentRef.last, inputs);
   }
 
   private activateSingleTab(item: TabbedItemConfig): boolean {

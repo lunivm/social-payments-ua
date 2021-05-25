@@ -1,4 +1,26 @@
+@import '~@angular/material/theming';
+@import 'shared/styles/general.variables';
+
 :host {
   display: block;
   height: 100%;
+  position: relative;
+}
+
+.sp-main-spinner {
+  position: absolute;
+  z-index: $loading-indicator-index - 1;
+  top: $toolbar-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  opacity: 0.8;
+  display: none;
+
+  &[visible=true] {
+    display: flex;
+  }
 }

@@ -87,6 +87,12 @@ $payment-section-indent: 1.2em;
   width: 100%;
 }
 
+.sp-payment-codes {
+  :first-child {
+    margin-right: $input-inline-indent;
+  }
+}
+
 .sp-payment-section {
   padding: $payment-section-indent 0;
 
@@ -101,8 +107,27 @@ $payment-section-indent: 1.2em;
 
 .sp-payment-actions {
   margin: 1em 0 0;
+  display: flex;
+  justify-content: space-between;
 
   .sp-payment-save {
     margin-right: $input-inline-indent;
+  }
+}
+
+.sp-report-number {
+  margin-left: 70px;
+}
+
+.sp-payment-paid {
+  margin-top: 3em;
+  display: block;
+
+  ::ng-deep {
+    .mat-checkbox-label {
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: $input-inline-indent / 2;
+    }
   }
 }

@@ -11,14 +11,21 @@ import {
   MatListModule,
   MatPaginatorIntl,
   MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSidenavModule,
+  MatSnackBarModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule,
-  MatToolbarModule
-} from '@angular/material';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+  MatToolbarModule,
+  MatChipsModule } from '@angular/material';
+
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MatMomentDateModule
+} from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
@@ -37,12 +44,16 @@ const importedExports = [
   MatListModule,
   MatMomentDateModule,
   MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSidenavModule,
+  MatSnackBarModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatChipsModule
 ];
 
 @NgModule({
@@ -52,6 +63,10 @@ const importedExports = [
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'uk'
+    },
+    {
+      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+      useValue: { useUtc: true }
     },
     MatPaginatorIntl
   ]

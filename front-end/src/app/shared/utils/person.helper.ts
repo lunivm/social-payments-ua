@@ -9,7 +9,7 @@ export class PersonHelper {
 
     const result: string[] = [];
 
-    result.push(address.street ? address.street.name : null);
+    result.push(address.street ? `вул. ${address.street.name}` : null);
     result.push(address.house);
 
     if (address.houseSection) {

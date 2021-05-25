@@ -1,0 +1,107 @@
+@import '~@angular/material/theming';
+@import '../../shared/styles/general.variables';
+
+@mixin layer() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+$progress-bar-height: 1em;
+$transition-time: 500ms;
+
+:host {
+  z-index: $loading-indicator-index;
+  color: mat-color($mat-indigo, 500);
+
+  @include layer();
+}
+
+.sp-glass {
+  @include layer();
+
+  z-index: 0;
+  background-color: white;
+  box-shadow: inset 0 0 0 3000px white;
+}
+
+.sp-info-layer {
+  @include layer();
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1;
+}
+
+.sp-progress-items {
+  height: 50%;
+  padding-top: $progress-bar-height * 2;
+  box-sizing: border-box;
+}
+
+.sp-progress-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: $progress-bar-height;
+
+  h3 {
+    margin: 0 0 0 $progress-bar-height;
+    color: $grey-text;
+    font-weight: 700;
+  }
+
+  [status="check"] {
+    color: mat-color($mat-green, A400);
+  }
+
+  [status="error_outline"] {
+    color: mat-color($mat-red, A400);
+  }
+}
+
+.sp-progress-layer {
+  @include layer();
+
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.sp-progress-container {
+  height: $progress-bar-height;
+  margin: 0 15%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+}
+
+.sp-progress-line {
+  background-color: mat-color($mat-indigo, 500);
+  transition: width $transition-time;
+  z-index: 1;
+}
+
+.sp-progress-line-bg {
+  @include layer();
+
+  background-color: mat-color($mat-indigo, 100);
+  z-index: -1;
+}
+
+:host.sp-loading-completed {
+  transition: all $transition-time;
+  opacity: 0;
+
+  .sp-info-layer{
+    transition: all $transition-time;
+    opacity: 0;
+  }
+  .sp-progress-container {
+    transition: all $transition-time;
+    margin: 0;
+  }
+}

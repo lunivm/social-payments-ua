@@ -5,6 +5,8 @@ import { PaymentModule } from './payment/payment.module';
 import { PaymentsDashboardModule } from './payments-dashboard/payments-dashboard.module';
 import { PaymentsHistoryModule } from './payments-history/payments-history.module';
 import { PaymentsComponent } from './payments.component';
+import { PaidActionsModule } from './paid-actions/paid-actions.module';
+import { HistoryTableComponent } from './shared/history-table/history-table.component';
 
 @NgModule({
   imports: [
@@ -12,6 +14,7 @@ import { PaymentsComponent } from './payments.component';
     PaymentModule,
     PaymentsDashboardModule,
     PaymentsHistoryModule,
+    PaidActionsModule,
     TabbedItemsModule
   ],
   declarations: [PaymentsComponent]

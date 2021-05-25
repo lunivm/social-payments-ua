@@ -4,7 +4,7 @@ import {
   Component
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginResponse } from '../../../../api-contracts/login-response';
+import { LoginResponse } from '../../../../api-contracts/login/login-response';
 import { SpDialogType } from '../shared/components/dialog/sp-dialog-type.enum';
 import { SpDialogService } from '../shared/components/dialog/sp-dialog.service';
 import { LoginService } from './login.service';
@@ -29,7 +29,7 @@ export class LoginComponent {
     this.loginService.requestLogin(this.login, this.password).subscribe(
       (res: LoginResponse) => {
         if (res.authorized) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/payments']);
         }
       },
       (error: any) => {
@@ -40,7 +40,7 @@ export class LoginComponent {
         } else {
           switch (error.status) {
             case 0:
-              text = 'Помилка сертифікату';
+              text = 'Помилка з\'єднання з сервером';
               break;
             case 401:
               text = 'Невірний логін або пароль';

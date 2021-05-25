@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -13,7 +14,8 @@ import { PersonAccountSelectedModel } from './person-account-selected.model';
 @Component({
   selector: 'sp-person-accounts',
   templateUrl: './person-accounts.component.html',
-  styleUrls: ['./person-accounts.component.scss']
+  styleUrls: ['./person-accounts.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonAccountsComponent {
   @Input() public personAccounts: PersonAccounts;

@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+
+  mat-card-title {
+    flex: 0 0 auto;
+  }
+
+  perfect-scrollbar {
+    flex: 1;
+  }
+}
+
+.sp-latest-payment-item {
+  mat-panel-title {
+    margin-right: 32px;
+    flex-grow: 0;
+  }
+
+  mat-panel-description {
+    align-items: center;
+  }
+
+  .sp-payment-sum {
+    min-width: 90px;
+  }
+
+  ::ng-deep {
+    .mat-content {
+      align-items: center;
+    }
+  }
+
+  .sp-latest-payment-fullname {
+    margin-bottom: 3px;
+  }
+
+  .sp-latest-payment-description {
+    line-height: 1.1;
+  }
+
+  .mat-expansion-panel-header {
+    padding: 5px 20px 5px 0;
+  }
+}
+
+.sp-latest-payments-loading {
+  ::ng-deep {
+    .mat-content {
+      justify-content: center;
+    }
+  }
+}

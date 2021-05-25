@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: build/app-release.dockerfile
+    environment:
+      NODE_ENV: "production"
+      SP_SERVE_STATIC: "true"
+    ports:
+      - 80:3000
+    depends_on:
+      - db-migrations
+
+  db:
+    image: mongo:4.4.6
+    ports:
+      - 27017:27017
+
+  db-migrations:
+    build:
+      context: .
+      dockerfile: build/db-migrations.dockerfile
+    depends_on:
+      - db

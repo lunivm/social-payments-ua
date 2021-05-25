@@ -3,12 +3,12 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { Street } from '../../../../api-contracts/street/street';
+import { Street } from 'api-contracts/street/street';
 
 export const streetSchema = new Schema({
   name: {
     type: String,
-    required: [true]
+    required: true
   },
   url: String
 });

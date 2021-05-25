@@ -35,7 +35,7 @@ export class FilterChipComponent implements OnInit {
     event.stopPropagation();
   }
 
-  public onClose(): void {
+  public onClose(event: MouseEvent): void {
     event.stopPropagation();
     this.close.emit(this.filterType);
   }

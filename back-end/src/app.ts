@@ -6,34 +6,44 @@ import express, {
   Request,
   Response
 } from 'express';
-import morgan from 'morgan';
-import { appRequestProcessor } from './app-request';
+import { Config } from './core/config/config';
 import { connectDb } from './core/db/db-connection';
+import { HttpError } from './core/http-error';
+import { Logger } from './core/logger/logger';
 import { initRoutes } from './routes/init-routes';
 
 const appConfig = express();
 
-appConfig.use(cors());
-appConfig.use(morgan('dev'));
+Logger.init(appConfig);
+
+if (Config.env.allowCORS) {
+  appConfig.use(cors());
+}
+
 appConfig.use(bodyParser.json());
 appConfig.use(bodyParser.urlencoded({extended: false}));
 appConfig.use(cookieParser());
 
-// adding promise resolver helpers
-appConfig.use(appRequestProcessor);
+if (Config.env.serveStatic) {
+  appConfig.use(express.static('../front-end/dist/social-payments-ua'));
+}
 
 connectDb();
 initRoutes(appConfig);
 
 // catch 404 and forward to error handler
 appConfig.use((req: Request, res: Response, next: NextFunction) => {
-  const err = new Error('Not Found') as any;
-  err.status = 404;
-  next(err);
+  if (Config.env.serveStatic) {
+    res.redirect('/index.html');
+  } else {
+    const err = new Error('Not Found') as any;
+    err.status = 404;
+    next(err);
+  }
 });
 
 // error handler
-appConfig.use((err: any, req: Request, res: Response, next: NextFunction) => {
+appConfig.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

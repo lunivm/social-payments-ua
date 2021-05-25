@@ -9,29 +9,42 @@
 
   <perfect-scrollbar class="sp-payment-body">
     <mat-card-content class="sp-payment-content">
-      <mat-form-field>
-        <input #dateInput
-          matInput
-          name="date"
-          formControlName="date"
-          autocomplete="off"
-          placeholder="Дата виплати"
-          [matDatepicker]="paymentDatepicker">
-        <mat-datepicker-toggle matSuffix
-          [for]="paymentDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #paymentDatepicker></mat-datepicker>
-        <mat-error *ngIf="date.invalid && date.hasError('required')">Введіть дату платежу</mat-error>
-      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <input #dateInput
+            matInput
+            name="date"
+            formControlName="date"
+            autocomplete="off"
+            placeholder="Дата рішення"
+            [matDatepicker]="paymentDatepicker">
+          <mat-datepicker-toggle matSuffix
+            [for]="paymentDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #paymentDatepicker></mat-datepicker>
+          <mat-error *ngIf="form.controls.date.invalid && form.controls.date.hasError('required')">Введіть дату платежу</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="sp-report-number">
+          <input matInput
+            formControlName="reportNumber"
+            autocomplete="off"
+            placeholder="Номер рішення">
+          <mat-error *ngIf="form.controls.reportNumber.invalid && form.controls.reportNumber.hasError('required')">Введіть номер рішення</mat-error>
+        </mat-form-field>
+
+      </div>
 
       <div class="sp-payment-section">
         <h4 class="sp-caption">Одержувач</h4>
-        <sp-person [autocompleteClasses]="autocompleteClasses"
+        <sp-person [renderAutocomplete]="renderAutocomplete"
+          [autocompleteClasses]="autocompleteClasses"
           (idChange)="onPersonIdChange($event)"></sp-person>
       </div>
 
       <div class="sp-payment-section sp-financial-institution">
         <h4 class="sp-caption">Фінансова установа</h4>
-        <sp-financial-institution [autocompleteClasses]="autocompleteClasses"
+        <sp-financial-institution [renderAutocomplete]="renderAutocomplete"
+          [autocompleteClasses]="autocompleteClasses"
           [id]="financialInstitutionId"
           (idChange)="onFinancialInstitutionIdChange($event)"
           class="sp-financial-institution"></sp-financial-institution>
@@ -43,9 +56,8 @@
             <input matInput
               formControlName="accountNumber"
               autocomplete="off"
-              placeholder="Номер особового рахунку"
-              [spInputFilter]="'[0-9]'">
-            <mat-error *ngIf="accountNumber.invalid && accountNumber.hasError('required')">Введіть номер особового рахунку</mat-error>
+              placeholder="Номер особового рахунку">
+            <mat-error *ngIf="form.controls.accountNumber.invalid && form.controls.accountNumber.hasError('required')">Введіть номер особового рахунку</mat-error>
           </mat-form-field>
 
           <mat-form-field>
@@ -55,7 +67,7 @@
               formControlName="sum"
               autocomplete="off"
               placeholder="Сума платежу">
-            <mat-error *ngIf="sum.invalid && sum.hasError('required')">Введіть суму платежу</mat-error>
+            <mat-error *ngIf="form.controls.sum.invalid && form.controls.sum.hasError('required')">Введіть суму платежу</mat-error>
           </mat-form-field>
         </div>
 
@@ -65,10 +77,20 @@
             formControlName="description"
             autocomplete="off"
             placeholder="Призначення платежу"></textarea>
-            <mat-error *ngIf="description.invalid && description.hasError('required')">Введіть призначення платежу</mat-error>
+            <mat-error *ngIf="form.controls.description.invalid && form.controls.description.hasError('required')">Введіть призначення платежу</mat-error>
           </mat-form-field>
         </div>
       </div>
+
+      <div class="sp-payment-codes">
+        <sp-code-kfk></sp-code-kfk>
+        <sp-code-kek></sp-code-kek>
+      </div>
+
+      <mat-checkbox class="sp-payment-paid"
+        [labelPosition]="'before'"
+        [checked]="form.controls.paid.value"
+        (change)="form.controls.paid.setValue($event.checked)">Оплачено:</mat-checkbox>
     </mat-card-content>
   </perfect-scrollbar>
 
@@ -76,14 +98,17 @@
     <mat-divider></mat-divider>
 
     <mat-card-actions class="sp-payment-actions">
-      <button class="sp-payment-save"
-        mat-raised-button
-        color="primary"
-        [disabled]="saveButtonDisabled"
-        (click)="onSaveClick()">Зберегти
-      </button>
-      <button mat-raised-button
-        (click)="onCancelClick()">Відміна</button>
+      <div>
+        <button class="sp-payment-save"
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="onSaveClick()">Зберегти
+        </button>
+        <button mat-raised-button
+          (click)="onCancelClick()">Відміна</button>      </div>
+
+      <button mat-raised-button color="accent" *ngIf="editMode" (click)="removePayment()">Видалити</button>
     </mat-card-actions>
   </div>
 </mat-card>

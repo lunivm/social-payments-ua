@@ -1,20 +1,23 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { environment } from '../../../environments/environment';
 import { TabbedItemsService } from '../../layout/tabbed-items/tabbed-items.service';
-import { requestDateFormat } from '../../shared/constants/date-formats';
-import { WindowProvider } from '../../shared/providers/window-provider';
+import { apiDateFormat } from '../../shared/constants/date-formats';
 import { PeriodReportRange } from './period-report-range.enum';
+import { ReportCommon } from '../shared/report-common';
 
 @Injectable()
-export class PeriodReportService {
-  // todo: change to flexible solution
-  private readonly requestUrl = 'https://localhost/reports/period';
+export class PeriodReportService extends ReportCommon {
+  private readonly requestUrl = `${environment.dataQueries.reportsEndpoint}/period`;
 
   constructor(
-    private tabbedItemsService: TabbedItemsService,
-    private window: WindowProvider
-  ) { }
+    tabbedItemsService: TabbedItemsService,
+    http: HttpClient
+  ) {
+    super(tabbedItemsService, http);
+  }
 
   public requestReport(range: PeriodReportRange, startDate?: Moment, endDate?: Moment): void {
     switch (range) {
@@ -33,7 +36,6 @@ export class PeriodReportService {
         return;
     }
 
-    this.tabbedItemsService.closeActiveTab();
-    this.window.open(`${this.requestUrl}?startDate=${startDate.format(requestDateFormat)}&endDate=${endDate.format(requestDateFormat)}`, '_blank');
+    this.saveReport(`${this.requestUrl}?startDate=${startDate.format(apiDateFormat)}&endDate=${endDate.format(apiDateFormat)}`);
   }
 }

@@ -1,18 +1,14 @@
-import {HttpClient} from '@angular/common/http';
-import {
-  Injectable,
-  OnDestroy
-} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import {User} from '../../../../../api-contracts/user/user';
-import {apiEndpoint} from '../../shared/constants/api-endpoint';
-import {UserDialogModel} from './user-dialog/user-dialog.model';
+import { User } from '../../../../../api-contracts/user/user';
+import { environment } from '../../../environments/environment';
+import { UserDialogModel } from './user-dialog/user-dialog.model';
 
 @Injectable()
 export class UsersService {
-  private readonly requestUrl = `${apiEndpoint}/users/`;
+  private readonly requestUrl = `${environment.dataQueries.apiEndpoint}/users`;
 
   private userListSubject: Subject<User[]>;
 
@@ -21,8 +17,10 @@ export class UsersService {
   public getUsers(): Observable<User[]> {
     if (!this.userListSubject) {
       this.userListSubject = new Subject<User[]>();
-      this.updateUserList();
     }
+
+    this.updateUserList();
+
     return this.userListSubject.asObservable();
   }
 
@@ -33,14 +31,14 @@ export class UsersService {
     if (!userInfo.user._id) {
       req = this.http.post<null>(this.requestUrl, user);
     } else {
-      req = this.http.put<null>(this.requestUrl + user._id, user);
+      req = this.http.put<null>(this.requestUrl + '/' + user._id, user);
     }
 
     req.subscribe(this.updateUserList.bind(this));
   }
 
   public removeUser(id: string): void {
-    this.http.delete<null>(this.requestUrl + id)
+    this.http.delete<null>(this.requestUrl + '/' + id)
       .subscribe(this.updateUserList.bind(this));
   }
 

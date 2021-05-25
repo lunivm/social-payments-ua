@@ -1,0 +1,58 @@
+@import "../../shared/styles/general.variables";
+
+.sp-paid-action-content {
+  margin-top: $input-block-indent;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-report-number,
+.sp-datepicker {
+  width: 210px;
+  margin-right: $input-inline-indent * 2;
+}
+
+.sp-request-items,
+.sp-filter-caption,
+mat-radio-button,
+.sp-pay-btn {
+  margin-right: $input-inline-indent * 2;
+}
+
+.sp-inputs-container {
+  display: flex;
+  margin-bottom: $input-block-indent;
+}
+
+.sp-total-result-filter {
+  display: flex;
+  padding: $input-block-indent 0;
+}
+
+.sp-total-result-caption {
+  margin-left: $input-inline-indent * 2;
+  display: flex;
+  align-items: center;
+}
+
+.sp-total-result-caption,
+.sp-filter-caption {
+  font-size: 14px;
+}
+
+.sp-actions-container {
+  flex: 0 0 auto;
+}
+
+.sp-table-container {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  align-items: center;
+
+  sp-history-table {
+    width: 100%;
+    height: 100%;
+  }
+}

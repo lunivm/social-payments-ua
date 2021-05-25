@@ -1,25 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl
-} from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
-import {
-  filter,
-  map,
-  startWith,
-  tap
-} from 'rxjs/operators';
+import { filter, map, startWith, tap } from 'rxjs/operators';
 import { Person } from '../../../../../../api-contracts/person/person';
 import { Street } from '../../../../../../api-contracts/street/street';
-import { lettersUA_CharsDiapason } from '../../constants/char-diapason-ua';
 import { FilterUtils } from '../../utils/filter-utils';
 import { PersonHelper } from '../../utils/person.helper';
 import { MultifiedAutocompleteCommonComponent } from '../common/multifield-autocomplete/multified-autocomplete-common.component';
@@ -29,12 +15,11 @@ import { StreetService } from './street.service';
 @Component({
   selector: 'sp-person',
   templateUrl: './person.component.html',
-  styleUrls: ['./person.component.scss']
+  styleUrls: ['./person.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonComponent extends MultifiedAutocompleteCommonComponent implements OnInit {
   @Input() public renderAddressFields: boolean = true;
-
-  public readonly passportNumberLetter = new RegExp(`[0-9a-zA-Z${lettersUA_CharsDiapason}]`);
 
   public fullName: FormControl;
   public passportNumber: FormControl;
@@ -70,13 +55,11 @@ export class PersonComponent extends MultifiedAutocompleteCommonComponent implem
     this.selectedStreetId.setValue(streetOption.option.value._id, {emitEvent: false});
   }
 
-  protected updateFormOnIdChange() {
-    console.log('Person id change cb called');
-  }
+  protected updateFormOnIdChange() {}
 
   protected createForm(): void {
     const mandatoryFields = {
-      _id: null,
+      _id: [''],
       fullName: ['', this.getConditionalValidator()],
       passportNumber: ['', this.getConditionalValidator()],
       identityCode: ['', this.getConditionalValidator()]
@@ -124,10 +107,10 @@ export class PersonComponent extends MultifiedAutocompleteCommonComponent implem
 
     this.steetsFiltered$ = this.streetName.valueChanges
       .pipe(
-        startWith(''),
+        filter(() => this.form.dirty),
         tap(() => this.selectedStreetId.setValue(null)),
         map((value: string | Street) => _.isString(value) ? value : value && value.name || ''),
-        map((streetInput: string) => this.streets.filter((street: Street) => street.name.toLowerCase().includes(streetInput)))
+        map((streetInput: string) => this.streets.filter((street: Street) => street.name.toLowerCase().includes(streetInput.toLowerCase())))
       );
   }
 }

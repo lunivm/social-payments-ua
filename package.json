@@ -1,5 +1,10 @@
 {
-  "name": "social-payments-ua",
-  "version": "0.0.1",
-  "dependencies": {}
+  "name": "social-payments-ua_database",
+  "engines": {
+    "node": "10.15.x"
+  },
+  "scripts": {
+    "start": "docker-compose up",
+    "build": "docker-compose -f app-release.docker-compose.yml up"
+  }
 }

@@ -1,1 +1,3 @@
+TODO:// remove RSA key from source
+
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 1 -config c:\tools\openssl\share\openssl.cnf

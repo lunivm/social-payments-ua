@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import 'app/shared/styles/_general.variables.scss';
 
 // ***
 // ***
@@ -47,6 +48,10 @@ $custom-typography: mat-typography-config(
     padding: 0;
   }
 
+  mat-card {
+    padding: 14px;
+  }
+
   // icons
   $small-icons-size: 18px;
   .sp-small-icon {
@@ -77,8 +82,6 @@ $custom-typography: mat-typography-config(
 
   // toolbar
   .mat-toolbar-row, .mat-toolbar-single-row {
-    $toolbar-height: 30px;
-
     height: $toolbar-height;
 
     .mat-button {
@@ -135,5 +138,9 @@ $custom-typography: mat-typography-config(
   mat-footer-cell:last-of-type,
   mat-header-cell:last-of-type {
     padding-right: $table-indent;
+  }
+
+  mat-checkbox .mat-checkbox-label {
+    line-height: 24px;
   }
 }

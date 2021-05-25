@@ -17,11 +17,16 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import { FinancialInstitutionComponent } from '../../../shared/components/financial-institution/financial-institution.component';
 import { PersonComponent } from '../../../shared/components/person/person.component';
-import { displayDateFormat } from '../../../shared/constants/date-formats';
+import {
+  apiDateFormat,
+  displayDateFormat
+} from '../../../shared/constants/date-formats';
 import { FilterUtils } from '../../../shared/utils/filter-utils';
-import { HistoryFilterModel } from '../shared/history-filter.model';
+import { HistoryFilterModel } from '../../shared/history-filter.model';
 import { FilterChipConfigModel } from './filter-chip-config.model';
 import { FilterType } from './shared/filter-type.enum';
+import { CodeKFKComponent } from '../../../shared/components/code-kfk/code-kfk.component';
+import { CodeKEKComponent } from '../../../shared/components/code-kek/code-kek.component';
 
 @Component({
   selector: 'sp-history-filter',
@@ -36,9 +41,13 @@ export class HistoryFilterComponent implements AfterViewInit {
   public readonly autocompleteClasses = 'sp-payments-history-autocomplete';
 
   @ViewChild(FinancialInstitutionComponent)
-  public financialInstitutionComponent: FinancialInstitutionComponent;
+  private financialInstitutionComponent: FinancialInstitutionComponent;
   @ViewChild(PersonComponent)
-  public personComponent: PersonComponent;
+  private personComponent: PersonComponent;
+  @ViewChild(CodeKFKComponent)
+  private codeKFKComponent: CodeKFKComponent;
+  @ViewChild(CodeKEKComponent)
+  private codeKEKComponent: CodeKEKComponent;
 
   public filterPanelExpanded: boolean = true;
 
@@ -71,20 +80,22 @@ export class HistoryFilterComponent implements AfterViewInit {
 
   private readonly filterControls: Map<FilterType, AbstractControl> = new Map();
 
-  constructor() {
-  }
+  constructor() {}
 
   public ngAfterViewInit() {
     this.searchForm.setControl('person', this.personComponent.form);
     this.searchForm.setControl('financialInstitution', this.financialInstitutionComponent.form);
+    this.searchForm.setControl('codeKFK', this.codeKFKComponent.codeKFK);
+    this.searchForm.setControl('codeKEK', this.codeKEKComponent.codeKEK);
 
     this.setupFilterControls();
   }
 
   public onSearchClick(closePanel = true) {
-    const normalizedInputs = _.mapValues(
-      this.searchForm.value,
-      (val: any) => moment.isMoment(val) ? val.toISOString() : val
+    const formVal = this.searchForm.value;
+    formVal.datesRange = FilterUtils.isEmpty(formVal.datesRange) ? formVal.datesRange : _.mapValues(
+      formVal.datesRange,
+      (val: string) => moment(val).isValid() ? moment(val).format(apiDateFormat) : null
     );
 
     this.setupFilterChips();
@@ -94,7 +105,7 @@ export class HistoryFilterComponent implements AfterViewInit {
     }
 
     // as any since failed to assert correct type for lodash mapValues
-    this.filterChange.emit(normalizedInputs as any);
+    this.filterChange.emit(formVal as any);
   }
 
   public onChipClose(filter: FilterType) {

@@ -3,7 +3,7 @@ import {
   model,
   Schema
 } from 'mongoose';
-import { PersonAccounts } from '../../../../api-contracts/person-accounts/person-accounts';
+import { PersonAccounts } from 'api-contracts/person-accounts/person-accounts';
 
 const personAccountsModel = new Schema({
   personId: {
@@ -31,4 +31,4 @@ const personAccountsModel = new Schema({
 
 export type PersonAccountsModel = PersonAccounts & Document;
 
-export const PersonAccountsModel = model<PersonAccountsModel>('PersonAccounts', personAccountsModel, 'person_accounts');
+export const PersonAccountsModel = model<PersonAccountsModel>('PersonAccounts', personAccountsModel, 'personAccounts');

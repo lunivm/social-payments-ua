@@ -1,8 +1,7 @@
 import { Schema } from 'mongoose';
+import { uniqueFieldMongoErrorCode } from '../unique-field-error-code.const';
 
-const uniqueError = (login: string): Error => new Error(`Логін '${login}' вже існує`);
-
-const uniqueFieldMongoErrorCode = 11000;
+const uniqueError = (login: string): Error => new Error(`Login '${login}' already exists`);
 
 export function addUserModelMiddleware(schema: Schema) {
   schema.post('save', (error: any, model: any, next) => {

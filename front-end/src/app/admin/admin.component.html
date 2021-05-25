@@ -1,1 +1,33 @@
-<sp-users></sp-users>
+<mat-sidenav-container>
+  <mat-sidenav mode="side"
+    opened="true"
+    class="sp-mat-sidenav"
+    [disableClose]="true">
+
+    <mat-nav-list>
+      <mat-list-item (click)="activeTab = 'general'"
+        [class.sp-selected]="activeTab === 'general'">
+        <mat-icon matListIcon>build</mat-icon>
+        <h3 matLine>Загальні</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item (click)="activeTab = 'users'"
+        [class.sp-selected]="activeTab === 'users'">
+        <mat-icon matListIcon>people</mat-icon>
+        <h3 matLine>Користувачі</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-card *ngIf="activeTab === 'general'">
+      <sp-general></sp-general>
+    </mat-card>
+
+    <mat-card *ngIf="activeTab === 'users'">
+      <sp-users></sp-users>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>

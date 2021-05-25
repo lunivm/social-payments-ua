@@ -5,6 +5,7 @@ import {
 } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { AdminModule } from './admin/admin.module';
+import { AuthGuard } from './core/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
 import { PaymentsComponent } from './payments/payments.component';
@@ -19,15 +20,27 @@ const routes: Routes = [
   },
   {
     path: 'payments',
-    component: PaymentsComponent
+    canActivate: [AuthGuard],
+    component: PaymentsComponent,
+    data: {
+      animation: 'payments'
+    }
   },
   {
     path: 'reports',
-    component: ReportsComponent
+    canActivate: [AuthGuard],
+    component: ReportsComponent,
+    data: {
+      animation: 'reports'
+    }
   },
   {
     path: 'admin',
-    component: AdminComponent
+    canActivate: [AuthGuard],
+    component: AdminComponent,
+    data: {
+      animation: 'admin'
+    }
   },
   {
     path: '',

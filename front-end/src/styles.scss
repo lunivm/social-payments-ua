@@ -9,8 +9,20 @@ html, body {
 
 body {
   font-family: "Roboto", "Open Sans", Helvetica, Arial, sans-serif;
+}
 
-  * {
-    user-select: none;
-  }
+.sp-flex {
+  display: flex;
+}
+
+.sp-align {
+  align-items: center;
+}
+
+.sp-justify {
+  justify-content: center;
+}
+
+.sp-justify-sb {
+  justify-content: space-between;
 }

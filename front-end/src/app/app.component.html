@@ -1,6 +1,14 @@
-<sp-main-nav *ngIf="renderMenu; else routerRef">
-  <router-outlet></router-outlet>
+<sp-main-nav *ngIf="renderMenu; else routerRef"
+  [@routeAnimations]="prepareRoute(routerOutlet)">
+
+  <router-outlet #routerOutlet="outlet"></router-outlet>
 </sp-main-nav>
+
+<sp-main-progress-bar *ngIf="renderMenu"></sp-main-progress-bar>
+
+<div [attr.visible]="mainSpinnerVisible" class="sp-main-spinner">
+  <mat-spinner></mat-spinner>
+</div>
 
 <ng-template #routerRef>
   <router-outlet></router-outlet>

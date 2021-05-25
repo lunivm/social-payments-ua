@@ -13,32 +13,39 @@
     </mat-expansion-panel-header>
 
     <section class="sp-search-inputs" [formGroup]="searchForm">
-      <div class="sp-search-container sp-period-select-container" formGroupName="datesRange">
-        <span class="sp-search-container-label">Дата:</span>
+      <div class="sp-search-container">
+        <div class="sp-period-select-container" formGroupName="datesRange">
+          <span class="sp-search-container-label">Дата:</span>
 
-        <mat-form-field class="sp-date-period-from">
-          <input matInput
-            formControlName="dateFrom"
-            autocomplete="off"
-            placeholder="з"
-            [max]="searchForm.get('datesRange.dateTo').value"
-            [matDatepicker]="fromDateCmp">
-          <mat-datepicker-toggle matSuffix
-            [for]="fromDateCmp"></mat-datepicker-toggle>
-          <mat-datepicker #fromDateCmp></mat-datepicker>
-        </mat-form-field>
+          <mat-form-field class="sp-date-period-from">
+            <input matInput
+              formControlName="dateFrom"
+              autocomplete="off"
+              placeholder="з"
+              [max]="searchForm.get('datesRange.dateTo').value"
+              [matDatepicker]="fromDateCmp">
+            <mat-datepicker-toggle matSuffix
+              [for]="fromDateCmp"></mat-datepicker-toggle>
+            <mat-datepicker #fromDateCmp></mat-datepicker>
+          </mat-form-field>
 
-        <mat-form-field class="sp-date-period-to">
-          <input matInput
-            formControlName="dateTo"
-            autocomplete="off"
-            placeholder="по"
-            [min]="searchForm.get('datesRange.dateFrom').value"
-            [matDatepicker]="toDateCmp">
-          <mat-datepicker-toggle matSuffix
-            [for]="toDateCmp"></mat-datepicker-toggle>
-          <mat-datepicker #toDateCmp></mat-datepicker>
-        </mat-form-field>
+          <mat-form-field class="sp-date-period-to">
+            <input matInput
+              formControlName="dateTo"
+              autocomplete="off"
+              placeholder="по"
+              [min]="searchForm.get('datesRange.dateFrom').value"
+              [matDatepicker]="toDateCmp">
+            <mat-datepicker-toggle matSuffix
+              [for]="toDateCmp"></mat-datepicker-toggle>
+            <mat-datepicker #toDateCmp></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="sp-codes-container">
+          <sp-code-kfk></sp-code-kfk>
+          <sp-code-kek></sp-code-kek>
+        </div>
       </div>
 
       <div class="sp-search-container">

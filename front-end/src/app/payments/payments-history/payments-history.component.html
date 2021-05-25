@@ -3,11 +3,15 @@
     (filterChange)="onFilterChange($event)"
     (filterEmpty)="onFilterEmpty()"></sp-history-filter>
 
-  <sp-history-table *ngIf="!statusTextDescription"
+  <sp-history-table *ngIf="(payments | async).length"
     class="sp-payments-history-table"
-    [payments]="payments"></sp-history-table>
+    [payments]="payments | async"></sp-history-table>
 
   <section *ngIf="statusTextDescription" class="sp-payments-history-message">
     <h1>{{statusTextDescription}}</h1>
+  </section>
+
+  <section *ngIf="showLoadingIndicator" class="sp-payments-history-loading">
+    <mat-spinner></mat-spinner>
   </section>
 </mat-card>

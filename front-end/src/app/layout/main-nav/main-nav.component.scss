@@ -9,10 +9,35 @@
 
 .sp-top-panel {
   box-shadow: 0 0 $shadow-size mat-color($mat-gray, 900);
+  display: flex;
+  justify-content: space-between;
 
   .sp-nav {
     .sp-nav-link {
       margin-right: 1em;
+    }
+  }
+
+  .sp-nav-user {
+    display: flex;
+    align-items: center;
+
+    .sp-nav-curr-user {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      margin-right: 2em;
+      color: mat-color($mat-grey, 300);
+    }
+
+    .sp-nav-icon {
+      min-width: 56px;
+      box-shadow: 0 0 1px white inset;
+      line-height: 22px;
+
+      mat-icon {
+        margin-top: -2px;
+      }
     }
   }
 }

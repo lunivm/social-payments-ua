@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: build/api.dockerfile
+    environment:
+      NODE_ENV: "development"
+    ports:
+      - 3000:3000
+    depends_on:
+      - db-migrations
+    volumes:
+      - ./back-end:/app
+      - /app/node_modules
+    entrypoint: npm start
+
+  ui:
+    build:
+      context: .
+      dockerfile: build/ui.dockerfile
+    environment:
+      NODE_ENV: "development"
+    ports:
+      - 4200:4200
+    volumes:
+      - ./front-end:/app
+      - /app/node_modules
+    entrypoint: npm start -- --host 0.0.0.0
+
+  db:
+    image: mongo:4.4.6
+    ports:
+      - 27017:27017
+
+  db-migrations:
+    build:
+      context: .
+      dockerfile: build/db-migrations.dockerfile
+    depends_on:
+      - db

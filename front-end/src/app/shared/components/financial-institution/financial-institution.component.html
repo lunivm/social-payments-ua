@@ -16,9 +16,8 @@
       type="text"
       formControlName="mfo"
       placeholder="Код МФО"
-      spInputFilter="[0-9]"
       [spProxyAutocompleteCommands]="autocomplete">
-    <mat-error *ngIf="renderValidationErrors && mfo.invalid && mfo.hasError('required')">Введіть код МФО</mat-error>
+    <mat-error *ngIf="renderValidationErrors && form.controls.mfo.invalid && form.controls.mfo.hasError('required')">Введіть код МФО</mat-error>
   </mat-form-field>
 
   <mat-form-field class="sp-financial-field sp-financial-edrpou">
@@ -26,9 +25,8 @@
       autocomplete="off"
       formControlName="edrpou"
       placeholder="Код ЄДРПОУ"
-      spInputFilter="[0-9]"
       [spProxyAutocompleteCommands]="autocomplete">
-    <mat-error *ngIf="renderValidationErrors && edrpou.invalid && edrpou.hasError('required')">Введіть код ЄДРПОУ</mat-error>
+    <mat-error *ngIf="renderValidationErrors && form.controls.edrpou.invalid && form.controls.edrpou.hasError('required')">Введіть код ЄДРПОУ</mat-error>
   </mat-form-field>
 
   <mat-form-field class="sp-financial-field sp-financial-name">
@@ -37,10 +35,11 @@
       formControlName="name"
       placeholder="Назва"
       [spProxyAutocompleteCommands]="autocomplete">
-    <mat-error *ngIf="renderValidationErrors && name.invalid && name.hasError('required')">Введіть назву</mat-error>
+    <mat-error *ngIf="renderValidationErrors && form.controls.name.invalid && form.controls.name.hasError('required')">Введіть назву</mat-error>
   </mat-form-field>
 
   <sp-multifield-autocomplete #autocomplete
+    [renderAutocomplete]="renderAutocomplete"
     [autocompleteClasses]="autocompleteClasses"
     [items]="financialInstitutionService.getData() | async"
     [filter$]="form.valueChanges"

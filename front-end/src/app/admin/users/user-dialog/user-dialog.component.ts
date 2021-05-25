@@ -12,7 +12,6 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { User } from '../../../../../../api-contracts/user/user';
 import { InputInstantStateMatcher } from '../../../shared/angular-material/input-instant-state-matcher';
-import { allUA_CharsDiapason } from '../../../shared/constants/char-diapason-ua';
 import { UserDialogModel } from './user-dialog.model';
 
 @Component({
@@ -21,7 +20,6 @@ import { UserDialogModel } from './user-dialog.model';
   styleUrls: ['./user-dialog.component.scss']
 })
 export class UserDialogComponent implements OnInit {
-  public readonly fullNameFilter = `[a-zA-Z${allUA_CharsDiapason} .'-]`;
   public login = new FormControl('', [Validators.required]);
   public fullName = new FormControl('', [Validators.required]);
   public password = new FormControl('', [Validators.required]);

@@ -25,6 +25,8 @@ export class PeriodReportComponent {
       (this.selectedRange === PeriodReportRange.Period && (!this.startDate || !this.endDate));
   }
 
+  public renderProgressBar: boolean = false;
+
   constructor(private periodReportService: PeriodReportService) {}
 
   public selectedRangeChange(val: {value: PeriodReportRange}) {
@@ -33,5 +35,6 @@ export class PeriodReportComponent {
 
   public onGenerateClick() {
     this.periodReportService.requestReport(this.selectedRange, this.startDate, this.endDate);
+    this.renderProgressBar = true;
   }
 }

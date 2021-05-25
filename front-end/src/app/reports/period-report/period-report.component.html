@@ -27,8 +27,7 @@
           [max]="endDate"
           [disabled]="datePeriodDisabled"
           [matDatepicker]="fromDateCmp">
-        <mat-datepicker-toggle matSuffix
-          [for]="fromDateCmp"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="fromDateCmp"></mat-datepicker-toggle>
         <mat-datepicker #fromDateCmp></mat-datepicker>
         <mat-error *ngIf="fromDateInput.invalid && fromDateInput.hasError('required')">Вкажіть початок періоду</mat-error>
       </mat-form-field>
@@ -44,17 +43,19 @@
           [min]="startDate"
           [disabled]="datePeriodDisabled"
           [matDatepicker]="toDateCmp">
-        <mat-datepicker-toggle matSuffix
-          [for]="toDateCmp"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="toDateCmp"></mat-datepicker-toggle>
         <mat-datepicker #toDateCmp></mat-datepicker>
         <mat-error *ngIf="toDateInput.invalid && toDateInput.hasError('required')">Вкажіть кінець періоду</mat-error>
       </mat-form-field>
     </div>
 
+    <mat-progress-bar *ngIf="renderProgressBar" mode="indeterminate"></mat-progress-bar>
+
     <button mat-raised-button
       color="primary"
-        [disabled]="buttonDisabled"
-      (click)="onGenerateClick()">Сформувати звіт
+      [disabled]="buttonDisabled"
+      (click)="onGenerateClick()">
+      Сформувати звіт
     </button>
   </mat-card-content>
 </mat-card>
