@@ -45,14 +45,14 @@
             [disabled]="(paidFilter.asObservable() | async) !== null"
             (click)="setPaidStatus(true)">
             <mat-icon aria-label="Search icon">attach_money</mat-icon>
-            Оплатити
+            Оплатити всі
           </button>
 
           <button mat-raised-button
             [disabled]="(paidFilter.asObservable() | async) !== null"
             (click)="setPaidStatus(false)">
             <mat-icon aria-label="Search icon">money_off</mat-icon>
-            Відмінити оплату
+            Відмінити оплату всім
           </button>
         </div>
       </div>

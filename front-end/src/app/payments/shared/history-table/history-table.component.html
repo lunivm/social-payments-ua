@@ -4,7 +4,7 @@
     [trackBy]="paymentsTrackFn">
 
     <ng-container matColumnDef="paid">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Оплата</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Оплачено</mat-header-cell>
       <mat-cell *matCellDef="let row">
         <mat-icon *ngIf="row.paid" color="accent">check_box</mat-icon>
       </mat-cell>
