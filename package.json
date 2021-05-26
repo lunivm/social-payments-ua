@@ -1,10 +1,14 @@
 {
   "name": "social-payments-ua_database",
+  "version": "1.0.0",
   "engines": {
     "node": "10.15.x"
   },
   "scripts": {
     "start": "docker-compose up",
-    "build": "docker-compose -f app-release.docker-compose.yml up"
+    "start:release": "docker-compose -f app-release.docker-compose.yml up",
+    "install:release": "docker-compose -f app-release.docker-compose.yml pull",
+    "build:release": "docker-compose -f app-release.docker-compose.yml build",
+    "push:release": "docker-compose -f app-release.docker-compose.yml push"
   }
 }

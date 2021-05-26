@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: build/app-release.dockerfile
+    image: lunivm/sp-app:1.0.0
     environment:
       NODE_ENV: "production"
       SP_SERVE_STATIC: "true"
@@ -21,5 +22,6 @@ services:
     build:
       context: .
       dockerfile: build/db-migrations.dockerfile
+    image: lunivm/sp-db-migrations:1.0.0
     depends_on:
       - db
