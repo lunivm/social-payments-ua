@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: build/app-release.dockerfile
-    image: lunivm/sp-app:1.0.0
+    image: lunivm/sp-app:1.0.1
     environment:
       NODE_ENV: "production"
       SP_SERVE_STATIC: "true"
