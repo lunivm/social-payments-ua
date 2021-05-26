@@ -7,7 +7,7 @@
     <mat-divider></mat-divider>
   </div>
 
-  <perfect-scrollbar class="sp-payment-body">
+  <perfect-scrollbar *ngIf="!showLoadingIndicator" class="sp-payment-body">
     <mat-card-content class="sp-payment-content">
       <div>
         <mat-form-field>
@@ -94,6 +94,10 @@
     </mat-card-content>
   </perfect-scrollbar>
 
+  <section *ngIf="showLoadingIndicator" class="sp-payment-loading">
+    <mat-spinner></mat-spinner>
+  </section>
+
   <div class="sp-payment-footer">
     <mat-divider></mat-divider>
 
@@ -102,11 +106,13 @@
         <button class="sp-payment-save"
           mat-raised-button
           color="primary"
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || showLoadingIndicator"
           (click)="onSaveClick()">Зберегти
         </button>
         <button mat-raised-button
-          (click)="onCancelClick()">Відміна</button>      </div>
+          (click)="onCancelClick()">Відміна
+        </button>
+      </div>
 
       <button mat-raised-button color="accent" *ngIf="editMode" (click)="removePayment()">Видалити</button>
     </mat-card-actions>

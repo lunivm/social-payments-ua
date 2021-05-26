@@ -47,6 +47,7 @@ export class PaymentComponent extends UnsubscribableComponent implements OnInit,
   public financialInstitutionId: string;
   public editMode = false;
   public renderAutocomplete = true;
+  public showLoadingIndicator = false;
 
   @ViewChild('dateInput')
   private dateInputRef: any;
@@ -109,9 +110,11 @@ export class PaymentComponent extends UnsubscribableComponent implements OnInit,
 
   public onSaveClick() {
     const subs = this.editMode ? this.paymentService.update(this.id, this.form.value) : this.paymentService.create(this.form.value);
+    this.showLoadingIndicator = true;
 
     subs.subscribe(() => {
       this.tabbedItemsService.closeActiveTab(0);
+      this.showLoadingIndicator = false;
       this.cdRef.markForCheck();
     });
   }

@@ -131,3 +131,10 @@ $payment-section-indent: 1.2em;
     }
   }
 }
+
+.sp-payment-loading {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}

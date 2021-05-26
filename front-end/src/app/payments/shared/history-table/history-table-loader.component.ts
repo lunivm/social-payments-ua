@@ -9,7 +9,7 @@ import { CompleteSubjectComponent } from '../../../shared/components/common/comp
 
 export class HistoryTableLoaderComponent extends CompleteSubjectComponent {
   public statusTextDescription: string;
-  public showLoadingIndicator: boolean = false;
+  public showLoadingIndicator = false;
 
   public payments: Observable<Payment[]>;
 
